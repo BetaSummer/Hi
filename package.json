@@ -1,0 +1,29 @@
+{
+  "name": "hi",
+  "version": "0.0.1",
+  "description": "WebSocket Chat Room",
+  "main": "index.js",
+  "scripts": {
+    "eslint": "./node_modules/.bin/eslint ./**/*.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BetaSummer/hi.git"
+  },
+  "keywords": [
+    "Socket.io",
+    "NodeJS"
+  ],
+  "author": "huangxutao <h784124804@gmail.com> (https://hxtao.site/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BetaSummer/hi/issues"
+  },
+  "homepage": "https://github.com/BetaSummer/hi#readme",
+  "dependencies": {
+    "eslint": "3.18.0",
+    "express": "4.15.2",
+    "socket.io": "1.7.3"
+  }
+}

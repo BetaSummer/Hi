@@ -1,0 +1,301 @@
+html,body{
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  color: #333;
+  font: 16px/1.4 "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.yellow{
+  color: #e28e12;
+}
+
+.green{
+  color: #4e8c07;
+}
+
+.light-green{
+  color: #009688;
+}
+
+.blue{
+  color: #038cca;
+}
+
+.red{
+  color: #c51205;
+}
+
+.light-red{
+  color: #da7195;
+}
+
+.grey{
+  color: grey;
+}
+
+.brown{
+  color: #795548;
+}
+
+.purple{
+  color: #9c27b0;
+}
+
+.content{
+  width: 100%;
+  height: 100%;
+}
+
+.box{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+
+/* 消息池 */
+.box .msg-pool{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 3.2rem;
+  left: 0;
+  background-image: linear-gradient(120deg, #155799, #159957);
+  overflow-y: auto;
+}
+
+.msg-pool .row{
+  padding: .6rem;
+}
+
+.msg-pool .row:after{
+  display: block;
+  content: "";
+  clear: both;
+}
+
+/* 消息池 - 聊天者 */
+.chatter{
+  float: left;
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+/* 消息池 - 聊天者 - 你 */
+.you .chatter{
+  float: right;
+}
+
+.chatter .logo{
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 1.2rem;
+  overflow: hidden;
+}
+
+.chatter .logo img{
+  width: 100%;
+  height: 100%;
+}
+
+/* 消息池 - 消息体 */
+.msg-content{
+  margin: 0 0 .6rem 2.8rem;
+}
+
+/* 消息池 - 消息体 - 你 */
+.you .msg-content{
+  margin: 0 2.8rem .6rem 0;
+  text-align: right;
+}
+
+/* 消息池 - 消息体 - 消息列表 */
+.msg-content ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 消息池 - 消息体 - 消息 */
+.msg-content .msg{
+  display: inline-block;
+  margin-bottom: .6rem;
+  padding: .6rem .8rem;
+  max-width: 90%;
+  text-align: left;
+  border-radius: .2rem;
+  background: rgba(242, 242, 242, 0.74);
+}
+
+.msg-content .msg h1{
+  margin: 0;
+  font-weight: normal;
+  font-size: 1rem;
+}
+
+.msg-content .msg p{
+  margin: 0;
+  word-wrap:break-word;
+}
+
+.msg-content .msg img{
+  margin: .6rem 0;
+}
+
+
+
+
+
+
+
+/* 消息发送栏 */
+.box .msg-input{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3.2rem;
+  line-height: 3.6rem;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.box .msg-input i{
+  display: inline-block;
+  width: 3.2rem;
+  height: 3.2rem;
+  color: #bbb;
+  font-style: normal;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.box .msg-input i:hover{
+  background: #f2f2f2;
+  cursor: pointer;
+}
+
+/* 文件 */
+.msg-input .file{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 3.2rem;
+  height: 3.2rem;
+}
+
+.msg-input .file .select{
+  display: none;
+  position: absolute;
+  top: -7rem;
+  left: 0;
+  padding-bottom: .6rem;
+  padding-left: .6rem;
+  width: 10.6rem;
+  height: 6.4rem;
+}
+
+.msg-input .file:hover .select{
+  display: block;
+}
+
+.msg-input .file .select p{
+  margin: 0;
+  height: 3.2rem;
+  line-height: 3.2rem;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.msg-input .file .select p.line{
+  border-bottom: .1rem solid #ddd;
+}
+
+.msg-input .file .select p:hover{
+  cursor: pointer;
+  background: #f2f2f2;
+}
+
+.msg-input .file .select i{
+  display: inline-block;
+}
+
+/* 文字 */
+.msg-input .words{
+  position: absolute;
+  top: 0;
+  right: 6.8rem;
+  bottom: 0;
+  left: 3.2rem;
+}
+
+.msg-input .words input{
+  display: block;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  color: #333;
+  border: none;
+}
+
+.msg-input .words input:focus{
+  outline: none;
+}
+
+/* 表情 */
+.msg-input .expression{
+  position: absolute;
+  top: 0;
+  right: 4rem;
+  bottom: 0;
+  width: 2.8rem;
+  height: 3.2rem;
+}
+
+.msg-input .expression i:hover{
+  background: none;
+}
+
+.msg-input i{
+  display: inline-block;
+}
+
+/* 发送 */
+.msg-input .send{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 4rem;
+  height: 3.2rem;
+  color: #777;
+  text-align: center;
+  cursor: default;
+}
+
+.msg-input .active{
+  color: #18bc9c;
+  cursor: pointer;
+}
+
+.msg-input .active:hover{
+  background: #f2f2f2;
+}
+
+.msg-input .send span{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
