@@ -4,49 +4,25 @@
   var msgWords = doc.getElementById('words');
   var btnSend = doc.getElementById('btn-send');
   var msgPool = doc.getElementById('msg-pool');
+  var thisChatter = null;
 
-  function createElement(data) {
-    var row = doc.createElement('div');
-
-    // var data = {
-    //   chatter: {
-    //     logo: 'https://oblky3j33.qnssl.com/images/logo.png',
-    //     name: 'elliot',
-    //     nameColor: 'yellow'
-    //   },
-    //   words: 'hello socket.io'
-    // };
-
-    var str ='\
-      <div class="row others">\
-        <div class="chatter">\
-          <div class="logo">\
-            <img src="' + data.chatter.logo + '" alt="">\
-          </div>\
-        </div>\
-        <div class="msg-content">\
-          <ul>\
-            <li>\
-              <div class="msg">\
-                <h1 class="' + data.chatter.nameColor + '">' + data.chatter.name + '</h1>\
-                <p>' + data.words + '</p>\
-              </div>\
-            </li>\
-          </ul>\
-        </div>\
-      </div>';
-
-    row.innerHTML = str;
-    msgPool.appendChild(row);
+  /**
+   * 显示消息
+   * 
+   * @param {Object} msg 
+   */
+  function displayMsg(msg) {
+    console.log(msg);
   }
 
   /**
-   * 发送消息
+   * 发送文本消息
    * 
-   * @param {String} msg 
+   * @param {String} text
    */
-  function sendMsg(data) {
-    socket.emit('c-words', data);
+  function sendText(text) {
+    socket.emit('c-text', text);
+    displayMsg(text);
   }
 
   /**
@@ -54,12 +30,15 @@
    * 
    */
   function getMsg() {
-    socket.on('s-words', function (data) {
-      createElement(data);
+    socket.on('s-text', function (text) {
+      displayMsg(text);
     });
-  }
 
-  getMsg();
+    socket.on('new-chatter', function (chatter) {
+      thisChatter = chatter;
+    });
+
+  }
 
   /**
    * 点击事件处理
@@ -72,14 +51,9 @@
 
     if(e.target.id === 'btn-send' && !!msg) {
       msgWords.value = '';
-      sendMsg({
-        chatter: {
-          logo: 'https://oblky3j33.qnssl.com/images/logo.png',
-          // name: 'elliot',
-          nameColor: 'yellow'
-        },
-        words: msg
-      });
+      sendText(msg);
+
+      msgWords.focus();
     }
   }
 
@@ -100,17 +74,11 @@
 
     if(e.keyCode == 13 && !!msg) {
       e.target.value = '';
-      sendMsg({
-        chatter: {
-          logo: 'https://oblky3j33.qnssl.com/images/logo.png',
-          // name: 'elliot',
-          nameColor: 'yellow'
-        },
-        words: msg
-      });
+      sendText(msg);
     }
   }
   
+  getMsg();
   msgInput.addEventListener('click', clickHandler, false);
   msgWords.addEventListener('keyup', keyUpHandler, false);
 }(window, document));
