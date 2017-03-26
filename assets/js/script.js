@@ -1,5 +1,5 @@
 ;(function(win, doc) {
-  var socket = io.connect('http://192.168.1.105:3000');
+  var socket = io.connect('http://127.0.0.1:3000');
   var msgInput = doc.getElementById('msg-input');
   var msgWords = doc.getElementById('words');
   var btnSend = doc.getElementById('btn-send');
