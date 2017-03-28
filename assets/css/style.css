@@ -3,7 +3,7 @@ html,body{
   width: 100%;
   height: 100%;
   color: #333;
-  font: 16px/1.4 "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 16px/1.2 "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -42,6 +42,10 @@ html,body{
 
 .purple{
   color: #9c27b0;
+}
+
+.light-purple{
+  color: #c707bb;
 }
 
 .content{
@@ -140,17 +144,23 @@ html,body{
 
 .msg-content .msg h1{
   margin: 0;
+  margin-bottom: .6rem;
   font-weight: normal;
   font-size: 1rem;
+  user-select: none;
+  cursor: default;
 }
 
 .msg-content .msg p{
   margin: 0;
-  word-wrap:break-word;
+  word-wrap: break-word;
 }
 
 .msg-content .msg img{
-  margin: .6rem 0;
+  margin: 0 .2rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  vertical-align: -22%;
 }
 
 
@@ -166,27 +176,21 @@ html,body{
   bottom: 0;
   left: 0;
   height: 3.2rem;
-  line-height: 3.6rem;
+  color: #777;
+  line-height: 3.2rem;
   box-sizing: border-box;
   user-select: none;
 }
 
-.box .msg-input i{
-  display: inline-block;
-  width: 3.2rem;
-  height: 3.2rem;
-  color: #bbb;
-  font-style: normal;
-  font-size: 1.6rem;
-  text-align: center;
-}
-
-.box .msg-input i:hover{
-  background: #f2f2f2;
+.box .msg-input img{
+  margin: 0 .2rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  vertical-align: -22%;
   cursor: pointer;
 }
 
-/* 文件 */
+/* 消息发送栏 - 文件 */
 .msg-input .file{
   position: absolute;
   top: 0;
@@ -194,9 +198,18 @@ html,body{
   bottom: 0;
   width: 3.2rem;
   height: 3.2rem;
+  text-align: center;
 }
 
-.msg-input .file .select{
+.msg-input .file svg{
+  color: #bbb;
+}
+
+.msg-input .file:hover{
+  background: #f2f2f2;
+}
+
+.file .select{
   display: none;
   position: absolute;
   top: -7rem;
@@ -205,56 +218,77 @@ html,body{
   padding-left: .6rem;
   width: 10.6rem;
   height: 6.4rem;
+  text-align: left;
 }
 
-.msg-input .file:hover .select{
+.file:hover .select{
   display: block;
 }
 
-.msg-input .file .select p{
+.file .select p{
+  position: relative;
   margin: 0;
+  padding: 0 .6rem;
   height: 3.2rem;
   line-height: 3.2rem;
   box-sizing: border-box;
   background: #fff;
 }
 
-.msg-input .file .select p.line{
+.file .select input{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file .select p.line{
   border-bottom: .1rem solid #ddd;
 }
 
-.msg-input .file .select p:hover{
+.file .select p:hover{
   cursor: pointer;
   background: #f2f2f2;
 }
 
-.msg-input .file .select i{
-  display: inline-block;
-}
 
-/* 文字 */
-.msg-input .words{
+/* 消息发送栏 - 文本 */
+.msg-input .text{
   position: absolute;
   top: 0;
   right: 6.8rem;
   bottom: 0;
-  left: 3.2rem;
+  left: .6rem;
 }
 
-.msg-input .words input{
-  display: block;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  color: #333;
-  border: none;
+.text .rich-input{
+  padding: 1em 0 1rem;
+  min-height: 3.2rem;
+  max-height: 6rem;
+  line-height: 1.26rem;
+  word-wrap: break-word;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
-.msg-input .words input:focus{
+.text .rich-input:focus{
   outline: none;
 }
 
-/* 表情 */
+.text .rich-input:focus:after{
+  background: dodgerblue;
+  transform: scale(1);
+}
+
+/* 消息发送栏 - 表情 */
 .msg-input .expression{
   position: absolute;
   top: 0;
@@ -262,17 +296,68 @@ html,body{
   bottom: 0;
   width: 2.8rem;
   height: 3.2rem;
+  text-align: center;
+  line-height: 3.4rem;
 }
 
-.msg-input .expression i:hover{
-  background: none;
+.expression i{
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-size: 1.8rem;
+  cursor: pointer;
 }
 
-.msg-input i{
-  display: inline-block;
+.expression i:hover{
+  color: #18bc9c;
+  background: transparent;
 }
 
-/* 发送 */
+/* 消息发送栏 - 表情 - 列表*/
+.expression .list-expressions{
+  display: none;
+  position: absolute;
+  right: -3.2rem;
+  bottom: 3.2rem;
+  padding-bottom: .6rem;
+  width: 15rem;
+  background: transparent;
+}
+
+.expression:hover .list-expressions{
+  display: block;
+}
+
+.list-expressions ul{
+  margin: 0;
+  padding: 1rem;
+  max-height: 28rem;
+  list-style: none;
+  box-sizing: border-box;
+  background: #fff;
+  overflow-y: auto;
+}
+
+.list-expressions ul:after{
+  display: block;
+  content: "";
+  clear: both;
+}
+
+.list-expressions ul li{
+  float: left;
+  width: 2.6rem;
+  height: 2.6rem;
+  line-height: 2.6rem;
+}
+
+.list-expressions li:hover{
+  border-radius: .2rem;
+  background: #f2f2f2;
+  transition: background .6s ease;
+}
+
+/* 消息发送栏 - 发送按钮 */
 .msg-input .send{
   position: absolute;
   top: 0;
@@ -280,22 +365,48 @@ html,body{
   bottom: 0;
   width: 4rem;
   height: 3.2rem;
-  color: #777;
-  text-align: center;
   cursor: default;
 }
 
-.msg-input .active{
+.send span{
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.send .active{
   color: #18bc9c;
   cursor: pointer;
 }
 
-.msg-input .active:hover{
+.send .active:hover{
   background: #f2f2f2;
 }
 
-.msg-input .send span{
-  display: block;
-  width: 100%;
-  height: 100%;
+
+
+
+
+@media only screen and (min-width: 640px) {
+  /* 定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸 */
+  ::-webkit-scrollbar{
+    width: .2rem;
+    height: .2rem;
+    background-color: #f2f2f2;
+  }
+
+  ::-webkit-scrollbar-track:hover{
+    background-color: #f2f2f2;
+  }
+
+  /* 定义滑块 内阴影 圆角 */
+  ::-webkit-scrollbar-thumb{
+    background-color: #ccc;
+  }
+
+  ::-webkit-scrollbar-thumb:hover{
+    background-color: #afafb0;
+  }
+  
 }
