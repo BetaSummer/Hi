@@ -1,9 +1,9 @@
 ;(function(win, doc, io) {
-
-  var socket = io.connect('http://192.168.1.105:3000/group-chat');  // 服务器地址
+  var socket = io.connect('http://39.184.238.20:3000/group-chat');  // 服务器地址
   var thisChatter = null;
 
   var msgPool = doc.getElementById('msg-pool');
+  var msgSlideIn = slide();
 
   /**
    * 文本消息
@@ -53,6 +53,7 @@
         type: 'text',
         time: new Date()
       });
+      msgSlideIn();
     },
 
     // 发送..
@@ -88,6 +89,7 @@
 
     socket.on('s-text', function(text) {
       displayMsg(text);
+      msgSlideIn();
       audio.play();
     });
 
@@ -104,6 +106,11 @@
 
   /**
    * 渲染消息 to html tags
+   * 
+   * 注：
+   *   ① 说多了都是泪啊，为了能插入表情装个B...
+   *   ② ...
+   * 
    * @param {Object} msg
    */
   function render(msg) {
@@ -149,15 +156,13 @@
   }
 
   /**
-   * 显示消息 append to msgPool
+   * 显示消息 append to msgPool （核心就一个 appendChild）
    * 
    * @param {Object} msg 
    */
   function displayMsg(msg) {
     var row = doc.createElement('div');
     var tmp = render(msg);
-    var timer = null;
-    var preScrollHeight = msgPool.scrollHeight;
 
     if(msg.self) {
       row.className = 'row you';
@@ -166,23 +171,44 @@
     }
     
     row.innerHTML = tmp; 
-    msgPool.appendChild(row);
+    msgPool.appendChild(row);  // 插入节点
+  }
 
-    var msgHeight = msgPool.scrollHeight - preScrollHeight;
-    var slideHeight = 0;
+  /**
+   * 消息平滑显示的视觉效果
+   * 
+   * 注：
+   *   ① 都是 appendChild 插入的节点不在可视区-这个坑，当然如果不要‘纵想丝滑’，可以直接 xxx.scrollTop = xxx.scrollHeight
+   *   ② scrollTop 的值不接受小数自动抛弃小数点后面的值，就像 Math.floor 一样向下舍入（chrome 57.0.2987.98）？ 比如scrollTop = 3.3 浏览器直接给了 3，
+   *
+   * @returns 
+   */
+  function slide() {
+    var isFinished = true;  // 滚动是否结束
+    var preScrollTop;
+    var timer = null;
 
+    return function() {
+      var startTime = Date.now();  // 开始滚动时的时间戳
+      var gapTime = 0;  // 间隔的时间
 
-    if(msgPool.scrollHeight - preScrollHeight > 0) {
-      timer = setInterval(function() {
-        msgPool.scrollTop += (slideHeight++) / 100;
-
-        if(slideHeight >= msgHeight) {
+      
+      // scrollTop 自增
+      function addScrollTop() {
+        gapTime = Date.now() - startTime;
+  
+        preScrollTop = msgPool.scrollTop;
+        msgPool.scrollTop = Math.ceil(msgPool.scrollTop + gapTime * gapTime * 0.0004);
+        
+        if(preScrollTop === msgPool.scrollTop) {
           clearInterval(timer);
-          console.log('end');
+          isFinished = true;
+        } else {
+          isFinished = false;
         }
+      }
 
-        console.log(msgPool.scrollTop,msgPool.scrollHeight)
-      }, 10);
+      return isFinished ? timer = setInterval(addScrollTop, 10) : false;
     }
   }
 
@@ -201,6 +227,7 @@
 
     if(e.target.id === 'btn-send') {
       msgText.go();
+      // msgSlideIn();
     } else if(e.target.id === 'select-photo') {
 
     } else if(e.target.id === 'select-file') {
