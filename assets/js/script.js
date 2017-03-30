@@ -1,5 +1,5 @@
 ;(function(win, doc, io) {
-  var socket = io.connect('http://39.184.238.20:3000/group-chat');  // 服务器地址
+  var socket = io.connect('http://192.168.1.105:3000/group-chat');  // 服务器地址
   var thisChatter = null;
 
   var msgPool = doc.getElementById('msg-pool');
@@ -195,20 +195,32 @@
       
       // scrollTop 自增
       function addScrollTop() {
-        gapTime = Date.now() - startTime;
-  
-        preScrollTop = msgPool.scrollTop;
-        msgPool.scrollTop = Math.ceil(msgPool.scrollTop + gapTime * gapTime * 0.0004);
-        
-        if(preScrollTop === msgPool.scrollTop) {
-          clearInterval(timer);
-          isFinished = true;
-        } else {
-          isFinished = false;
+
+        // 讲真，我实在不知给这个函数取个什么名字了，它存在的意义完全是为了取代 setInterval 函数
+        // 因为，当回调函数的执行被阻塞时，setInterval 仍然会发布更多的回调指令，
+        // 在很小的定时间隔情况下，这会导致回调函数被堆积起来。
+        // 对应本程序的功能，测试过大量消息时，所谓我想要的消息平滑显示的视觉效果会是个大坑
+        function bar() {
+          gapTime = Date.now() - startTime;
+    
+          preScrollTop = msgPool.scrollTop;
+          msgPool.scrollTop = Math.ceil(msgPool.scrollTop + gapTime * gapTime * 0.0004);
+          
+          if(preScrollTop === msgPool.scrollTop) {
+            timer = null;
+            clearTimeout(timer);
+            isFinished = true;
+          } else {
+            addScrollTop();  // 自我调用
+            isFinished = false;
+          }
         }
+
+        // 在回调函数内部使用 setTimeout 函数，间接实现 setInterval 的效果
+        timer = setTimeout(bar, 10);
       }
 
-      return isFinished ? timer = setInterval(addScrollTop, 10) : false;
+      return isFinished ? addScrollTop() : false;
     }
   }
 
@@ -227,7 +239,6 @@
 
     if(e.target.id === 'btn-send') {
       msgText.go();
-      // msgSlideIn();
     } else if(e.target.id === 'select-photo') {
 
     } else if(e.target.id === 'select-file') {
