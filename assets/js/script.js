@@ -1,5 +1,5 @@
 ;(function(win, doc, io) {
-  var socket = io.connect('http://192.168.1.105:3000/group-chat');  // 服务器地址
+  var socket = io.connect('//192.168.1.105:3000/group-chat', {secure: true});  // 服务器地址
   var thisChatter = null;
 
   var msgPool = doc.getElementById('msg-pool');
@@ -19,7 +19,7 @@
       var str = this._element.innerHTML;
 
       // 表情 -> 提取表情标识
-      var expression = '';
+      var expressionName = '';
       var first = 0;
       var last = 0;
       var imgReg = /<img.*?(?:>|\/>)/gi;
@@ -260,7 +260,7 @@
 
     // 选择表情
     if(e.target.tagName === 'IMG' && parent.tagName === 'LI') {
-      text.innerHTML += parent.innerHTML;
+      msgText._element.innerHTML += parent.innerHTML;
     }
 
     // 查看新消息
