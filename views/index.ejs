@@ -7,14 +7,17 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Hi，嗨，嗨</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="http://at.alicdn.com/t/font_avvkjnvm0x315rk9.css">
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_wo1kcjy4bp2satt9.css">
 </head>
 <body>
   <audio src="audio/new-msg.mp3" controls="controls" id="audio"></audio>
   <div class="content">
     <div class="box">
       <div class="msg-pool" id="msg-pool">
-        <!--<div class="row you">
+
+
+
+        <%# <div class="row you">
           <div class="chatter">
             <div class="logo">
               <img src="" alt="">
@@ -30,7 +33,19 @@
               </li>
             </ul>
           </div>
-        </div>-->
+        </div>
+        <div class="row system">
+          <p>🙋 192.168.1.105 加入群聊 - 12:31:02</p>
+        </div>
+        <div class="row system">
+          <p class="leave">☕ 192.168.1.105 离开群聊 - 12:31:02</p>
+        </div> %>
+
+
+
+      </div>
+      <div class="msg-notice hide-notice" id="msg-notice">
+        <i class="iconfont icon-chat"></i>
       </div>
       <div class="msg-input" id="msg-input">
         <div class="text">
@@ -46,25 +61,6 @@
             </ul>
           </div>
         </div>
-        <!-- <div class="">
-          <div class="add">
-            <i class="iconfont icon-add"></i>
-            <div class="select">
-              <p class="line">
-                <i class="iconfont icon-file"></i>
-                File
-                <input type="file">
-              </p>
-              <p>
-                <i class="iconfont icon-sortphoto"></i>
-                Photo
-              </p>
-            </div>
-          </div>
-          <div class="send">
-            <span id="btn-send">Send</span>
-          </div>
-        </div> -->
         <div class="send">
           <span id="btn-send">Send</span>
         </div>

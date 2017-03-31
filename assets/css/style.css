@@ -8,6 +8,10 @@ html,body{
   overflow: hidden;
 }
 
+audio{
+  display: none;
+}
+
 .yellow{
   color: #e28e12;
 }
@@ -51,6 +55,7 @@ html,body{
 .content{
   width: 100%;
   height: 100%;
+  background: #f2f2f2;
 }
 
 .box{
@@ -62,13 +67,17 @@ html,body{
   margin: auto;
   width: 100%;
   height: 100%;
+  transition: all .6s ease;
 }
 
 
 
-
-
-/* 消息池 */
+/**
+ * 
+ * 消息池 Start 
+ *
+ *
+ */
 .box .msg-pool{
   position: absolute;
   top: 0;
@@ -79,6 +88,7 @@ html,body{
   overflow-y: auto;
 }
 
+/* 消息池 - 消息行 */
 .msg-pool .row{
   padding: .6rem;
 }
@@ -89,16 +99,23 @@ html,body{
   clear: both;
 }
 
-/* 消息池 - 聊天者 */
+/* 消息池 - 消息行/系统 */
+.system p{
+  margin: 0;
+  color: #76d0db;
+  font-size: 12px;
+  text-align: center;
+}
+
+.system .leave{
+  color: #bbb;
+}
+
+/* 消息池 - 消息行 - 聊天者 */
 .chatter{
   float: left;
   width: 2.4rem;
   height: 2.4rem;
-}
-
-/* 消息池 - 聊天者 - 你 */
-.you .chatter{
-  float: right;
 }
 
 .chatter .logo{
@@ -113,25 +130,24 @@ html,body{
   height: 100%;
 }
 
-/* 消息池 - 消息体 */
+/* 消息池 - 消息行/你 - 聊天者 */
+.you .chatter{
+  float: right;
+}
+
+/* 消息池 - 消息行 - 消息体 */
 .msg-content{
   margin: 0 0 .6rem 2.8rem;
 }
 
-/* 消息池 - 消息体 - 你 */
-.you .msg-content{
-  margin: 0 2.8rem .6rem 0;
-  text-align: right;
-}
-
-/* 消息池 - 消息体 - 消息列表 */
+/* 消息池 - 消息行 - 消息体 - 消息列表 */
 .msg-content ul{
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* 消息池 - 消息体 - 消息 */
+/* 消息池 - 消息行 - 消息体 - 消息 */
 .msg-content .msg{
   display: inline-block;
   margin-bottom: .6rem;
@@ -163,13 +179,74 @@ html,body{
   vertical-align: -22%;
 }
 
+/* 消息池 - 消息行/你 - 消息体 */
+.you .msg-content{
+  margin: 0 2.8rem .6rem 0;
+  text-align: right;
+}
+/**
+ *
+ *
+ *
+ * 消息池 END
+ */
 
 
 
+/**
+ * 
+ * 新消息提示 Start
+ *
+ *
+ */
+.box .msg-notice{
+  position: absolute;
+  padding: .6rem;
+  bottom: 3.2rem;
+  left: 0;
+  transition: all .6s ease;
+}
+
+.msg-notice i{
+  display: inline-block;
+  font-size: 1.8rem;
+  color: blanchedalmond;
+  line-height: 2rem;
+  cursor: pointer;
+}
+
+.box .hide-notice{
+  opacity: 0;
+  transform: scale(0.6) translateY(4rem);
+}
+
+.box .show-notice{
+  animation: notice 2s ease infinite;
+}
+
+@keyframes notice{
+  0%, 100%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(.6);
+  }
+}
+/**
+ * 
+ *
+ *
+ * 新消息提示 END
+ */
 
 
 
-/* 消息发送栏 */
+/**
+ * 
+ * 消息发送栏 Start
+ *
+ *
+ */
 .box .msg-input{
   position: absolute;
   right: 0;
@@ -180,6 +257,7 @@ html,body{
   line-height: 3.2rem;
   box-sizing: border-box;
   user-select: none;
+  z-index: 9;
 }
 
 .box .msg-input img{
@@ -190,76 +268,6 @@ html,body{
   cursor: pointer;
 }
 
-/* 消息发送栏 - 文件 */
-.msg-input .file{
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 3.2rem;
-  height: 3.2rem;
-  text-align: center;
-}
-
-.msg-input .file svg{
-  color: #bbb;
-}
-
-.msg-input .file:hover{
-  background: #f2f2f2;
-}
-
-.file .select{
-  display: none;
-  position: absolute;
-  top: -7rem;
-  left: 0;
-  padding-bottom: .6rem;
-  padding-left: .6rem;
-  width: 10.6rem;
-  height: 6.4rem;
-  text-align: left;
-}
-
-.file:hover .select{
-  display: block;
-}
-
-.file .select p{
-  position: relative;
-  margin: 0;
-  padding: 0 .6rem;
-  height: 3.2rem;
-  line-height: 3.2rem;
-  box-sizing: border-box;
-  background: #fff;
-}
-
-.file .select input{
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  outline: none;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.file .select p.line{
-  border-bottom: .1rem solid #ddd;
-}
-
-.file .select p:hover{
-  cursor: pointer;
-  background: #f2f2f2;
-}
-
-
 /* 消息发送栏 - 文本 */
 .msg-input .text{
   position: absolute;
@@ -267,13 +275,15 @@ html,body{
   right: 6.8rem;
   bottom: 0;
   left: .6rem;
+  overflow: hidden;
 }
 
+/* 消息发送栏 - 文本 */
 .text .rich-input{
   padding: 1em 0 1rem;
   min-height: 3.2rem;
   max-height: 6rem;
-  line-height: 1.26rem;
+  line-height: 1.4rem;
   word-wrap: break-word;
   overflow-y: auto;
   box-sizing: border-box;
@@ -383,8 +393,12 @@ html,body{
 .send .active:hover{
   background: #f2f2f2;
 }
-
-
+/**
+ * 
+ *
+ *
+ * 消息发送栏 END
+ */
 
 
 
@@ -409,4 +423,20 @@ html,body{
     background-color: #afafb0;
   }
   
+}
+
+@media only screen and (min-width: 1280px) {
+  .box{
+    width: 320px;
+    height: 568px;
+    box-shadow: 0 .12rem .24rem #aaa;
+  }
+}
+
+@media only screen and (min-width: 1369px) {
+  .box{
+    width: 375px;
+    height: 667px;
+    box-shadow: 0 .12rem .24rem #aaa;
+  }
 }

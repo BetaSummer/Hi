@@ -3,19 +3,22 @@
   var thisChatter = null;
 
   var msgPool = doc.getElementById('msg-pool');
+  var msgNotice = doc.getElementById('msg-notice');
   var msgSlideIn = slide();
 
   /**
-   * 文本消息
+   * 文本消息对象
    */
   var msgText = {
     _element: doc.getElementById('text'),
 
-    // 获取文本
+    /**
+     * 获取文本 
+     */
     _getValue: function() {
       var str = this._element.innerHTML;
 
-      // 提取表情标识
+      // 表情 -> 提取表情标识
       var expression = '';
       var first = 0;
       var last = 0;
@@ -44,24 +47,30 @@
       return str;
     },
 
-    // 显示到消息池
+    /**
+     * 显示到消息池
+     */
     _display: function(msg) {
       displayMsg({
-        self: true,
         from: thisChatter,
-        content: msg,
+        to: 'all',
         type: 'text',
-        time: new Date()
+        date: new Date(),
+        content: msg,
       });
       msgSlideIn();
     },
 
-    // 发送..
+    /**
+     * 发送..
+     */
     _send: function(msg) {
-      socket.emit('c-text', msg);
+      socket.emit('c-msg', msg);
     },
 
-    // 集成..
+    /**
+     * 集成..
+     */
     go: function() {
       var msg = this._getValue();
 
@@ -69,38 +78,44 @@
         return false;
       }
 
-      this._send(msg);
+      this._send({
+        to: 'all',
+        type: 'text',
+        content: msg
+      });
       this._element.innerHTML = '';
       this._element.focus();
       this._display(msg);
     }
-  }
+  };
 
   /**
-   * 消息处理 response socket broadcast
+   * 消息处理
+   * 
+   * 注：
+   *   ① join 返回当前 chatter 的基本信息
+   *   ② s-msg 包含 系统消息（type: 'notice' && from: 'system'），群聊消息（type: 'text' || 'photo' || 'file'）
    * 
    */
   function msgHandler() {
     var audio = doc.getElementById('audio');
 
-    socket.on('welcome', function(chatter) {
+    socket.on('join', function(chatter) {
       thisChatter = chatter;
     });
 
-    socket.on('s-text', function(text) {
-      displayMsg(text);
-      msgSlideIn();
-      audio.play();
-    });
+    socket.on('s-msg', function(msg) {
+      // 回滚（回看历史消息）的距离
+      var backScroll = msgPool.scrollHeight - msgPool.scrollTop - msgPool.offsetHeight;
 
-    socket.on('s-photo', function(photo) {
-      displayMsg(photo);
+      displayMsg(msg);
       audio.play();
-    });
 
-    socket.on('s-file', function(file) {
-      displayMsg(file);
-      audio.play();
+      if(backScroll < 100) {
+        msgSlideIn();
+      } else {
+        msgNotice.className= 'msg-notice show-notice';
+      }
     });
   }
 
@@ -123,13 +138,13 @@
     msgContent = msg.content.replace(/\n/g, '<br>');
     expressions = msgContent.match(expressionReg);
 
-    if(expressions) {
+    if(expressions) {  // 提取表情标识 -> 表情
       for(var i = 0, len = expressions.length; i < len; i++) {
         msgContent = msgContent.replace(expressions[i], '<img src="expressions/'+ expressions[i].slice(2, expressions[i].lastIndexOf('+:')) +'.png">');
-      } 
+      }
     }
 
-    if(msg.type === 'text') {
+    if(msg.type === 'text') {  // 渲染文本消息
       tmp = '\
         <div class="chatter">\
           <div class="logo">\
@@ -146,10 +161,18 @@
             </li>\
           </ul>\
         </div>';
-    } else if(msg.type === 'photo') {
+    } else if(msg.type === 'photo') {  // 图片消息
 
-    } else{
-      
+    } else if(msg.type === 'file') {  // 文件消息
+
+    } else {  // 系统消息
+      if(msg.action === 'join') {
+        tmp = '<p class="join">'+ msg.content + '</p>';
+      } else if(msg.action === 'leave') {
+        tmp = '<p class="leave">'+ msg.content + '</p>';
+      } else {
+        tmp = '<p>ℹ 不支持的消息类型</p>'
+      }
     }
 
     return tmp;
@@ -164,9 +187,11 @@
     var row = doc.createElement('div');
     var tmp = render(msg);
 
-    if(msg.self) {
+    if(msg.type === 'notice' && msg.from === 'system') {  // 系统提示消息 join or leave
+      row.className = 'row system';
+    } else if(msg.from.name === thisChatter.name) {  // 你自己发送的消息
       row.className = 'row you';
-    } else {
+    } else {  // 其他人的消息
       row.className = 'row others';
     }
     
@@ -233,16 +258,20 @@
     var e = ev || win.event;
     var parent = e.target.parentNode;
 
+    // 选择表情
     if(e.target.tagName === 'IMG' && parent.tagName === 'LI') {
-      text.innerHTML += parent.innerHTML; 
+      text.innerHTML += parent.innerHTML;
     }
 
+    // 查看新消息
+    if(e.target.id === 'msg-notice' || e.target.parentNode.id === 'msg-notice') {
+      msgNotice.className = 'msg-notice hide-notice';
+      msgSlideIn();
+    }
+
+    // 发送消息
     if(e.target.id === 'btn-send') {
       msgText.go();
-    } else if(e.target.id === 'select-photo') {
-
-    } else if(e.target.id === 'select-file') {
-      
     }
   }
 
@@ -254,7 +283,8 @@
   function keyUpHandler(ev) {
     var e = ev || win.event;
 
-    if(win.screen.width > 1366 && !e.shiftKey && e.keyCode === 13) {
+    // PC 端回车发送消息
+    if(win.screen.width >= 1280 && !e.shiftKey && e.keyCode === 13) {
       e.preventDefault();
 
       msgText.go();
