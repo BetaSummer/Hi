@@ -1,5 +1,5 @@
 ;(function(win, doc, io) {
-  var socket = io.connect('//192.168.1.105:3000/group-chat', {secure: true});  // 服务器地址
+  var socket = io.connect('//192.168.1.105:3000/group-chat');  // 服务器地址
   var thisChatter = null;
 
   var msgPool = doc.getElementById('msg-pool');
