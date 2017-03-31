@@ -59,8 +59,6 @@ Io.of('/group-chat').on('connection', function (socket) {
       content: cMsg.content
     };
 
-    console.log(msg);
-
     socket.broadcast.emit('s-msg', msg);
   });
 
