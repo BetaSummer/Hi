@@ -101,7 +101,14 @@
     var audio = doc.getElementById('audio');
 
     socket.on('join', function(chatter) {
+      var msg = {
+        to: 'all',
+        type: 'text',
+        content: '说来你们都可能不相信，其实。。。\n\n我是自己冒出来的:+奸笑+:'
+      };
+      
       thisChatter = chatter;
+      socket.emit('c-msg', msg);
     });
 
     socket.on('s-msg', function(msg) {
@@ -242,7 +249,7 @@
         }
 
         // 在回调函数内部使用 setTimeout 函数，间接实现 setInterval 的效果
-        timer = setTimeout(bar, 10);
+        timer = setTimeout(bar, 18);
       }
 
       return isFinished ? addScrollTop() : false;
