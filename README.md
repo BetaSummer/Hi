@@ -1,5 +1,6 @@
 # Hi
 
+[![Build Status](https://travis-ci.org/BetaSummer/Hi.svg?branch=master)](https://travis-ci.org/BetaSummer/Hi)
 ![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
 
 The chat room based on socket.io
