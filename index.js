@@ -20,7 +20,7 @@ let chatter = {
 }
 
 Io.of('/group-chat').on('connection', function (socket) {
-  let reqIP = socket.handshake.address.substr(7);
+  let reqIP = socket.handshake.headers['x-real-ip'] || socket.handshake.address.substr(7);
   let reqDate = new Date();
   let thisChatter = {
     name: reqIP,
