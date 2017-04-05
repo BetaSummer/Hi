@@ -26,6 +26,7 @@
   "dependencies": {
     "ejs": "2.5.6",
     "express": "4.15.2",
+    "randomcolor": "0.4.4",
     "socket.io": "1.7.3"
   },
   "devDependencies": {
