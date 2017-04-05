@@ -100,11 +100,15 @@
   function msgHandler() {
     var audio = doc.getElementById('audio');
 
+    socket.on('refused', function(err) {
+      alert(err);
+    });
+
     socket.on('join', function(chatter) {
       var msg = {
         to: 'all',
         type: 'text',
-        content: '说来你们都可能不相信，其实。。。\n\n我是自己冒出来的:+奸笑+:'
+        content: '告诉你们一个秘密 \n\n注意听哦:+奸笑+:'
       };
       
       thisChatter = chatter;
@@ -127,6 +131,51 @@
   }
 
   /**
+   * 绘制图片 base64 (头像)
+   * 
+   * @param {Object} photo 
+   * 注：
+   *   ① photo.pixels {Array} 存储着所有像素点的信息
+   *   ② photo.width {Number} 图片的宽度
+   * 
+   * @returns 
+   */
+  function drawPhoto(photo) {
+    var canvas = doc.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+
+    var base64 = '';
+
+    var data = photo.pixels;
+    var width = photo.width;
+
+    canvas.width = width;
+    canvas.height = width;
+
+    // 打印像素点
+    function printPixel(ctx, opt) {
+      var x = opt.position.x;
+      var y = opt.position.y;
+      var size = opt.size;
+
+      ctx.fillStyle = opt.color;
+      ctx.fillRect(x, y, size, size);
+      ctx.fillRect(width - x - size, y, size, size);
+    }
+
+    // 循环输出
+    for(var i = 0, len = data.length; i < len; i++) {
+      printPixel(ctx, data[i]);
+    }
+
+    base64 = canvas.toDataURL();
+    canvas = null;
+
+    // 返回 base64
+    return base64;
+  }
+
+  /**
    * 渲染消息 to html tags
    * 
    * 注：
@@ -136,7 +185,6 @@
    * @param {Object} msg
    */
   function render(msg) {
-    var nameColor = ['yellow', 'green', 'light-green', 'blue', 'red', 'light-red', 'grey', 'brown', 'purple', 'light-purple'];
     var tmp = '';
     var msgContent = '';
     var expressionReg = /:\+.*?\+:/gi;
@@ -155,14 +203,14 @@
       tmp = '\
         <div class="chatter">\
           <div class="logo">\
-            <img src="logo/'+ msg.from.logo +'.jpg" alt="'+ msg.from.name +'">\
+            <img src="'+ drawPhoto(msg.from.logo) +'" alt="'+ msg.from.name +'">\
           </div>\
         </div>\
         <div class="msg-content">\
           <ul>\
             <li>\
               <div class="msg">\
-                <h1 class="'+ nameColor[msg.from.nameColor] +'">'+ msg.from.name +'</h1>\
+                <h1 style="color:' + msg.from.color +'">'+ msg.from.name +'</h1>\
                 <p>'+ msgContent +'</p>\
               </div>\
             </li>\
@@ -174,9 +222,9 @@
 
     } else {  // 系统消息
       if(msg.action === 'join') {
-        tmp = '<p class="join">'+ msg.content + '</p>';
+        tmp = '<p class="join">'+ msgContent + '</p>';
       } else if(msg.action === 'leave') {
-        tmp = '<p class="leave">'+ msg.content + '</p>';
+        tmp = '<p class="leave">'+ msgContent + '</p>';
       } else {
         tmp = '<p>ℹ 不支持的消息类型</p>'
       }
@@ -228,7 +276,7 @@
       // scrollTop 自增
       function addScrollTop() {
 
-        // 讲真，我实在不知给这个函数取个什么名字了，它存在的意义完全是为了取代 setInterval 函数
+        // 讲真，我实在不知给这个函数取个什么名字了，它存在的意义完全是为了替代 setInterval 函数
         // 因为，当回调函数的执行被阻塞时，setInterval 仍然会发布更多的回调指令，
         // 在很小的定时间隔情况下，这会导致回调函数被堆积起来。
         // 对应本程序的功能，测试过大量消息时，所谓我想要的消息平滑显示的视觉效果会是个大坑

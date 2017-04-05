@@ -12,46 +12,6 @@ audio{
   display: none;
 }
 
-.yellow{
-  color: #e28e12;
-}
-
-.green{
-  color: #4e8c07;
-}
-
-.light-green{
-  color: #009688;
-}
-
-.blue{
-  color: #038cca;
-}
-
-.red{
-  color: #c51205;
-}
-
-.light-red{
-  color: #da7195;
-}
-
-.grey{
-  color: grey;
-}
-
-.brown{
-  color: #795548;
-}
-
-.purple{
-  color: #9c27b0;
-}
-
-.light-purple{
-  color: #c707bb;
-}
-
 .content{
   width: 100%;
   height: 100%;
@@ -84,7 +44,10 @@ audio{
   right: 0;
   bottom: 3.2rem;
   left: 0;
-  background-image: linear-gradient(120deg, #155799, #159957);
+  /*background-image: linear-gradient(120deg, #795548, rgb(31, 174, 192));*/
+  background: url('http://www.bz55.com/uploads/allimg/160426/139-160426142425.jpg') no-repeat;
+  background-position: center center;
+  background-size: 100% auto;
   overflow-y: auto;
 }
 
@@ -155,7 +118,7 @@ audio{
   max-width: 90%;
   text-align: left;
   border-radius: .2rem;
-  background: rgba(242, 242, 242, 0.74);
+  background: rgba(242, 242, 242, 0.88);
 }
 
 .msg-content .msg h1{
@@ -180,6 +143,10 @@ audio{
 }
 
 /* 消息池 - 消息行/你 - 消息体 */
+.you .msg{
+  background: rgba(239, 253, 222, 0.8);
+}
+
 .you .msg-content{
   margin: 0 2.8rem .6rem 0;
   text-align: right;

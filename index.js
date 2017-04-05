@@ -1,4 +1,5 @@
 const httpHander = require('./lib/http');
+const randomChatter = require('./lib/randomChatter');
 const Server = require('http').createServer(httpHander);
 const Io = require('socket.io')(Server);
 
@@ -31,16 +32,11 @@ Io.of('/group-chat').on('connection', function (socket) {
 
   // 唯一 IP 原则
   if(chatter.name.indexOf(reqIP) >= 0) {
-
     return socket.emit('refused', `您的IP: ${reqIP} 已被占用...`);
   }
 
   let reqDate = new Date();
-  let thisChatter = {
-    name: reqIP,
-    logo: parseInt(Math.random() * 10, 10),
-    nameColor: parseInt(Math.random() * 10, 10)
-  };
+  let thisChatter = randomChatter(reqIP);
   let msg = {
     action: 'join',
     from: 'system',
