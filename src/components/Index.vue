@@ -1,12 +1,13 @@
 <template>
   <div class="hello">
-  
-   <my-input class="footer"></my-input>
+    <msg-pool class="content"></msg-pool>
+    <my-input class="footer"></my-input>
   </div>
 </template>
 
 <script>
-  import MyInput from './Input'
+  import MyInput from './MsgInput'
+  import MsgPool from './MsgPool'
 
   export default {
     name: 'index',
@@ -16,7 +17,8 @@
       }
     },
     components: {
-      MyInput: MyInput
+      MyInput: MyInput,
+      MsgPool: MsgPool
     }
   }
 </script>
@@ -34,12 +36,22 @@
     height: 100%;
   }
 
+  .content{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #ebebeb;
+    box-sizing: border-box;
+  }
+
   .footer{
     position: fixed;
     right: 0;
     bottom: 0;
     left: 0;
     width: 100%;
-    box-shadow: 0 0 12px #bbb;
+    background: #fff;
+    box-shadow: 0 0 5px #bbb;
+    box-sizing: border-box;
   }
 </style>

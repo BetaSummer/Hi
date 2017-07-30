@@ -1,7 +1,7 @@
 <template>
   <div class="rich-input">
     <div class="input-area">
-      <div class="input" contenteditable="true"></div>
+      <pre class="input" contenteditable="true" v-on:keyup="keyUpHandler"></pre>
     </div>
     <div class="files">
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAFaElEQVR4Xu1bjXEVNxBeVRCoIKQCoAKgAkgFQAVZVwBU4KWCmAowFcRUgKkgpoKECsR8b1YZvX3S3UqnO7/wrJk3nvFJp91P+6+9QCc+wonzT3cArC0BzHwvhPAkxviIiPB7oH9LW18T0Q0RXYcQrmOMn0Xk3zVpXEUCmPlBCOF5jPHVBLNevgDGRYzxwxpgDAWAmZ8S0R9E9MLLXeO8SyJ6LyJXjeuq04cAwMwQ7XMiAgBz4ysRJbFOjKR194jo4dwLiAjrzkQEKrNoLAIA+k1Eb4iIJ6j4pARfeQlWQAEKfs8n3i1E9G6JanQDoER+VKNmafxGRG+J6HIJcXipggxbApB/LYABo/m7F1y7vgsAZgZBfxaI2TEuIheL5LKyWPcFsCUgXvfs2wwAM0PXrch/JyIRERC3+mBm7AMafjGbAfx3LQQ0AcDMOHWcfj5g1F71imALsflcVUFImjWaFyLy2vteNwDMDIMDF5ePDziJpXruJdbOU/sAul6aZzCMLml0AVDReQQmVhp6eVm0jpkhCRYEl02YBUBF7Ys9+WNhPtFVAeHxnGpOAqAiBuYRv6dxNCdfUAkrCXCRAKGaT8wBYPUeBu/pben8nJ7ogSFKzA0jQudqoFYFoCD6cHVgfnH4OcfIkudKN0DIXWRVFaYA+MvE9m7L6mFA0+Sd4Rqd6WmcgBA9DYThz0p0FQHQrA4ApPFNRHI74OFxco4xWsPtCjND//OI8Vkpi6wBgLQzT0JcLqUFFWaGmD7RNSh8eDJJ9xYF1/1JRA7S9AMAUMwgor/XPH28e20AdA8rBfetAS8BAIuJeD+N4ae/IQCWF9QQ4Nn+GyUA4PdR4EjjADW3HE5M3EgCUK/4JyPjWkQeVwFQP5ovKOrN/wUAlTRrz/YOdE8CmBlGAkWONA5EZgTzW6mA7mPVAMUTgLIbFgBkULn/nI2lewHZQgUUAKhznsvsxTMWgNw1ocIxmywdOwAKQszo3FNrC0BuAL+KSG4Me3ktrttKAhQAhO8pP9gzhBaAHKnhwUmOxMYAVCV7GADqQRA/eENmSBfcFAbSVW+SheAGxtl9ZWbA3lPtKQCakh9mttZ2qMqYlzV5J5sc5bbtDgCjl1VrOXecWYGyRQVSzo5aQ4sKNBVie1XgJI1g1V3MSUDr8429QNW9WxuwFzefYiB08qHwySdDNn8+rXS4EDfjXz9TQeQgv/GUxJqiLq832MILFKJTV0nMFkVvROQ3L2PeeRsBgOJuHpjNF0VVDX7Gsnjx7sF7MTJcCja4GLGn778YKdTs8K+m7HBOFbLmJ0xFV4c7vXW828Yz1bC+5XIUBAJFb9IyR+cqz/VyFNd6qdaAfdovR1UK7PU4mAcIw05rJAoqVWA+L+X1XY8rAEARTOeXjE1NSCMZnHtXoYkLbXuPuhskFARbVk466+7EmiN8xPNKB9tsWd9V9q40SR2NJFSYd91pugBQSbCWdScJrQXKEaed3pEVYm23mttjuQFQEErtaLARQHtT76DWHo2b9u6iqdmiCYAJSYBXwM1zU5tqrzQwc+pQz11dV6zSDICCUGuWvgkhvD0/P0cH6fBxdnb2MsYIVSwVXl06b4nqAiDzDsgZii3sIQQZ0fyUmqlijLh3KDEOV/eiVwW7AcjiBJyI7SHOgb4MIVzpB1AuOwH91g+t0Dc09fnNe23P7w7MFgGQWWMYIkSNqelpSvwBwtQnM54L2c/apO0CdIqYIQBkQODEIKpTn7kssQ2wLYg/juujKctRlunBWHo+gpoCBe25cL9DM8a04VAJKHGhYEAy8g8na6CA2d2Hk/pDh2e3fntEbXUAPETc5pw7AG4T/WPY+wegMPRfLDHFYQAAAABJRU5ErkJggg==" alt="">
@@ -17,7 +17,18 @@
 
 <script>
   export default {
-    name: 'Input'
+    name: 'Input',
+
+    methods: {
+      keyUpHandler (ev) {
+        let e = ev || window.event
+        let isMobile = /AppleWebKit.*Mobile.*|Android|iPhone|iPad/.test(navigator.userAgent)
+
+        if (!isMobile && !e.shiftKey && e.keyCode === 13) {
+          alert('发送消息...')
+        }
+      }
+    }
   }
 </script>
 
@@ -33,16 +44,20 @@
     right: 88px;
     left: 0;
 
+    padding: 18px 0;
     height: 100%;
     line-height: 24px;
     outline: none;
+    box-sizing: border-box;
   }
 
   .input-area .input{
-    padding: 18px 12px;
+    margin: 0;
+    padding: 0 12px;
     height: 100%;
     line-height: 20px;
     outline: none;
+    text-align: justify;
     box-sizing: border-box;
     overflow: auto;
   }
@@ -87,5 +102,9 @@
   .files img, .expressions img, .send-menu img{
     width: 32px;
     height: 32px;
+  }
+
+  .input::-webkit-scrollbar{
+    display: none;
   }
 </style>
