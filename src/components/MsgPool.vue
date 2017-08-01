@@ -6,7 +6,57 @@
       </div>
       <div class="content">
         <div class="bubble border">
-          hello 你好
+          hello 你好<br>SB
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avator">
+        <img src="../assets/logo.jpg" alt="">
+      </div>
+      <div class="content">
+        <div class="bubble border">
+          hello 你好<br>SB
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avator">
+        <img src="../assets/logo.jpg" alt="">
+      </div>
+      <div class="content">
+        <div class="bubble border">
+          hello 你好<br>SB
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avator">
+        <img src="../assets/logo.jpg" alt="">
+      </div>
+      <div class="content">
+        <div class="bubble border">
+          hello 你好<br>SB
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avator">
+        <img src="../assets/logo.jpg" alt="">
+      </div>
+      <div class="content">
+        <div class="bubble border">
+          hello 你好<br>SB
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avator">
+        <img src="../assets/logo.jpg" alt="">
+      </div>
+      <div class="content">
+        <div class="bubble border">
+          hello 你好<br>SB
         </div>
       </div>
     </div>
@@ -26,7 +76,7 @@
       </div>
       <div class="content">
         <div class="bubble border">
-          好你妹？
+          好你妹？<br>SB
         </div>
       </div>
     </div>
@@ -61,8 +111,10 @@
 
 <style scoped>
   .msg-pool{
+    padding: 12px 0;
     width: 100%;
-    height: 100%;
+    font-size: 14px;
+    overflow: auto;
   }
 
   .msg{
@@ -71,6 +123,8 @@
     align-items: flex-start;
     justify-content: space-between;
     width: 100%;
+    padding: 0 6px;
+    box-sizing: border-box;
   }
 
   .msg.you{
@@ -78,27 +132,27 @@
   }
   
   .msg .avator{
-    width: 60px;
-    height: 60px;
+    padding: 6px;
+    width: 52px;
+    height: 52px;
     text-align: center;
     box-sizing: border-box;
   }
   
   .msg .avator img{
-    padding: 12px;
     width: 40px;
     height: 40px;
-    border-radius: 16px;
+    border-radius: 4px;
   }
 
   .msg .content{
-    padding: 12px 6px;
+    padding: 6px;
     padding-right: 84px;
     width: 100%;
   }
 
   .msg.you .content{
-    padding: 12px 6px 12px 84px;
+    padding: 6px 6px 6px 84px;
     text-align: right;
   }
 
@@ -106,8 +160,9 @@
     position: relative;
     display: inline-block;
     max-width: 520px;
-    padding: 8px 12px;
-    line-height: 22px;
+    padding: 10px 12px;
+    line-height: 18px;
+    text-align: left;
     border: 1px solid #d3d3d3;
     border-radius: 4px;
     background: #fff;
