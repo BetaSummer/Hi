@@ -20,15 +20,8 @@
         </div>
       </div>
     </div>
-    <div class="msg">
-      <div class="avator">
-        <img src="../assets/logo.jpg" alt="">
-      </div>
-      <div class="content">
-        <div class="bubble border">
-          hello 你好<br>SB
-        </div>
-      </div>
+    <div class="msg system">
+      <span>Millco、何建吖、崔慧、马克里斯 加入群聊</span>
     </div>
     <div class="msg">
       <div class="avator">
@@ -50,15 +43,8 @@
         </div>
       </div>
     </div>
-    <div class="msg">
-      <div class="avator">
-        <img src="../assets/logo.jpg" alt="">
-      </div>
-      <div class="content">
-        <div class="bubble border">
-          hello 你好<br>SB
-        </div>
-      </div>
+    <div class="msg system">
+      <span>周一 13:01</span>
     </div>
     <div class="msg you">
       <div class="avator">
@@ -129,6 +115,23 @@
 
   .msg.you{
     flex-direction: row-reverse;
+  }
+
+  .msg.system{
+    justify-content: center;
+    padding: 22px 6px 6px  6px;
+  }
+
+  .msg.system span{
+    display: inline-block;
+    padding: 0 6px;
+    color: #fff;
+    font-size: 12px;
+    line-height: 22px;
+    text-align: center;
+    background: rgba(142, 139, 139, 0.28);
+    border-radius: 2px;
+    box-sizing: border-box;
   }
   
   .msg .avator{
