@@ -1,15 +1,6 @@
 <template>
   <div class="msg-pool">
-    <div class="msg">
-      <div class="avator">
-        <img src="../assets/logo.jpg" alt="">
-      </div>
-      <div class="content">
-        <div class="bubble border">
-          hello 你好<br>SB
-        </div>
-      </div>
-    </div>
+    <div class="unread-count">12</div>
     <div class="msg">
       <div class="avator">
         <img src="../assets/logo.jpg" alt="">
@@ -23,58 +14,8 @@
     <div class="msg system">
       <span>Millco、何建吖、崔慧、马克里斯 加入群聊</span>
     </div>
-    <div class="msg">
-      <div class="avator">
-        <img src="../assets/logo.jpg" alt="">
-      </div>
-      <div class="content">
-        <div class="bubble border">
-          hello 你好<br>SB
-        </div>
-      </div>
-    </div>
-    <div class="msg">
-      <div class="avator">
-        <img src="../assets/logo.jpg" alt="">
-      </div>
-      <div class="content">
-        <div class="bubble border">
-          hello 你好<br>SB
-        </div>
-      </div>
-    </div>
     <div class="msg system">
       <span>周一 13:01</span>
-    </div>
-    <div class="msg you">
-      <div class="avator">
-        <img src="../assets/ii.png" alt="">
-      </div>
-      <div class="content">
-        <div class="bubble border">
-          好你妹？
-        </div>
-      </div>
-    </div>
-    <div class="msg you">
-      <div class="avator">
-        <img src="../assets/ii.png" alt="">
-      </div>
-      <div class="content">
-        <div class="bubble border">
-          好你妹？<br>SB
-        </div>
-      </div>
-    </div>
-    <div class="msg you">
-      <div class="avator">
-        <img src="../assets/ii.png" alt="">
-      </div>
-      <div class="content">
-        <div class="bubble border">
-          好你妹？
-        </div>
-      </div>
     </div>
     <div class="msg you">
       <div class="avator">
@@ -91,7 +32,10 @@
 
 <script>
   export default {
-    name: 'MsgPool'
+    name: 'MsgPool',
+    data () {
+      return {}
+    }
   }
 </script>
 
@@ -101,6 +45,36 @@
     width: 100%;
     font-size: 14px;
     overflow: auto;
+  }
+
+  .unread-count{
+    position: absolute;
+    bottom: 22px;
+    left: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    box-shadow: 1px 2px 6px #bbb;
+    user-select: none;
+    background: rgba(3, 169, 244, 0.66);
+    animation: pulse 2s ease infinite;
+  }
+
+  .unread-count:after{
+    position: absolute;
+    right: 0;
+    bottom: -14px;
+    left: 0;
+    content: "";
+    margin: auto;
+    width: 12px;
+    height: 12px;
+    box-shadow: 1px 2px 6px #bbb;
+    border-radius: 6px;
+    background: rgba(3, 169, 244, 0.46);;
   }
 
   .msg{
@@ -214,6 +188,18 @@
   .msg.you .content .bubble.border:after{
     border-right-color: transparent;
     border-left-color: rgba(239, 253, 222, 0.8);
+  }
+
+  @keyframes pulse{
+    from {
+      transform: scale3d(1, 1, 1);
+    }
+    50% {
+      transform: scale3d(1.15, 1.15, 1.15);
+    }
+    to {
+      transform: scale3d(1, 1, 1);
+    }
   }
 
 </style>
