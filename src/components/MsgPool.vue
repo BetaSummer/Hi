@@ -120,6 +120,7 @@
     width: 40px;
     height: 40px;
     border-radius: 4px;
+    user-select: none;
   }
 
   .msg .content{

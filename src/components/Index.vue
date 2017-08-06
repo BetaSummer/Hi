@@ -43,7 +43,6 @@
     bottom: 56px;
     left: 0;
     width: 100%;
-    background: #ebebeb;
     box-sizing: border-box;
   }
 
