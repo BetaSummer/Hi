@@ -1,6 +1,6 @@
 <template>
   <div class="msg-pool">
-    <div class="unread-count">12</div>
+    <!-- <div class="unread-count">12</div> -->
     <div class="msg">
       <div class="avator">
         <img src="../assets/logo.jpg" alt="">
@@ -11,19 +11,19 @@
         </div>
       </div>
     </div>
-    <div class="msg system">
-      <span>Millco、何建吖、崔慧、马克里斯 加入群聊</span>
+    <!-- <div class="msg system">
+      <span>111 加入群聊</span>
     </div>
     <div class="msg system">
       <span>周一 13:01</span>
-    </div>
+    </div> -->
     <div class="msg you">
       <div class="avator">
         <img src="../assets/ii.png" alt="">
       </div>
       <div class="content">
         <div class="bubble border">
-          好你妹？
+          🙄 呵呵
         </div>
       </div>
     </div>
@@ -45,6 +45,8 @@
     width: 100%;
     font-size: 14px;
     overflow: auto;
+    background: #f4f8f7;
+    /* background: #fff; */
   }
 
   .unread-count{
@@ -119,36 +121,44 @@
   .msg .avator img{
     width: 40px;
     height: 40px;
-    border-radius: 4px;
+    border-radius: 22px;
     user-select: none;
   }
 
   .msg .content{
-    padding: 6px;
-    padding-right: 84px;
+    padding: 6px 80px 6px 0;
     width: 100%;
   }
 
   .msg.you .content{
-    padding: 6px 6px 6px 84px;
+    padding: 6px 0 6px 80px;
     text-align: right;
   }
 
   .msg .content .bubble{
     position: relative;
+    margin-top: 16px;
     display: inline-block;
     max-width: 520px;
     padding: 10px 12px;
     line-height: 18px;
     text-align: left;
-    border: 1px solid #d3d3d3;
-    border-radius: 4px;
+    border-radius: 18px;
+    border-top-left-radius: 4px;
     background: #fff;
     box-sizing: border-box;
+    box-shadow: 0 5px 20px rgba(186, 186, 186, 0.5);
+    box-shadow: 1px 2px 6px #bbb;
+    background: #fbfbfb;
   }
 
   .msg.you .content .bubble{
-    background: rgba(239, 253, 222, 0.8);
+    color: #fff;
+    box-shadow: 1px 2px 6px #7c78fe;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 18px;
+    background: #7c78fe;
+    background: linear-gradient(to left, #7c78fe, #54b5fe);
   }
 
   .msg .content .bubble:before,
@@ -160,7 +170,7 @@
     width: 0;
     height: 0;
     border: 6px solid transparent;
-    content: "";
+    /* content: ""; */
   }
 
   .msg.you .content .bubble:before,
