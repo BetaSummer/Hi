@@ -15,7 +15,7 @@
       </div>
     </header>
     <footer>
-
+      
     </footer>
   </div>
 </template>
@@ -147,6 +147,7 @@
     top: 0;
     left: 0;
     width: 100%;
+    height: 56px;
     box-shadow: 0 0 5px #bbb;
   }
 
@@ -155,23 +156,19 @@
     bottom: 0;
     left: 0;
     height: 200px;
-    background: teal;
   }
 
   .input-area{
-    top: 0;
     margin-right: 44px;
     margin-left: 88px;
-    padding: 18px 0;
     height: 100%;
-    line-height: 24px;
     outline: none;
     box-sizing: border-box;
   }
 
   .input-area .input{
-    margin: 0;
-    padding: 0 12px;
+    margin: auto;
+    padding: 18px 12px;
     min-height: 16px;
     max-height: 56px;
     line-height: 20px;
@@ -199,7 +196,7 @@
   .files{
     position: absolute;
     left: 0;
-    bottom: 0;
+    top: 0;
     width: 56px;
     height: 56px;
     text-align: center;
@@ -212,7 +209,7 @@
   .expressions{
     position: absolute;
     left: 56px;
-    bottom: 0;
+    top: 0;
     width: 32px;
     height: 56px;
     text-align: center;
@@ -232,7 +229,7 @@
   .send-menu{
     position: absolute;
     right: 0;
-    bottom: 0;
+    top: 0;
     width: 56px;
     height: 56px;
     text-align: center;
