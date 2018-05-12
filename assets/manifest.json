@@ -1,0 +1,14 @@
+{
+  "name": "Hi，嗨，嗨",
+  "short_name": "偷qing吗",
+  "icons": [{
+    "src": "/logo/12.jpg",
+    "sizes": "240x240",
+    "type": "image/jpg"
+  }],
+  "start_url": "/hi",
+  "display": "standalone",
+  "background_color": "#fff",
+  "theme_color": "#fff"
+}
+  
